@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:taskland/consts/illustrations.dart';
+import 'package:taskland/screens/home/home_screen.dart';
 import 'package:taskland/widgets/page_indicator.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -35,7 +36,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               children: [
                 PageIndicator(totalPages: 2, currentIndex: currentIndex),
                 FilledButton(
-                  onPressed: _nextPageButtonTapped,
+                  onPressed: () => _nextPageButtonTapped(context),
                   child: Text(currentIndex == 0 ? "Sonraki" : "Başla"),
                 ),
               ],
@@ -95,7 +96,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
 
-  void _nextPageButtonTapped() {
+  void _nextPageButtonTapped(BuildContext context) {
     if (currentIndex == 0) {
       carouselController.nextPage(
         duration: const Duration(milliseconds: 500),
@@ -108,5 +109,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
       return;
     }
+
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const HomeScreen()),
+      (route) => false,
+    );
   }
 }
