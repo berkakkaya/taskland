@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taskland/consts/colors.dart';
 import 'package:taskland/consts/font_theme.dart';
-import 'package:taskland/screens/welcome_screen.dart';
+import 'package:taskland/screens/introduction/welcome_screen.dart';
 
 void main() {
   runApp(const MyApp());
