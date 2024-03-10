@@ -19,17 +19,20 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: NavigationBar(
         selectedIndex: currentPage,
         onDestinationSelected: _onNewTabTapped,
-        destinations: const [
-          NavigationDestination(
+        destinations: [
+          const NavigationDestination(
             icon: Icon(Icons.task_alt_outlined),
             label: "Görevler",
           ),
           NavigationDestination(
-            icon: Icon(Icons.spa_outlined),
+            icon:
+                Icon(currentPage == 1 ? Icons.spa_rounded : Icons.spa_outlined),
             label: "Alışkanlıklar",
           ),
           NavigationDestination(
-            icon: Icon(Icons.settings_outlined),
+            icon: Icon(currentPage == 2
+                ? Icons.settings_rounded
+                : Icons.settings_outlined),
             label: "Ayarlar",
           ),
         ],
