@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:taskland/consts/colors.dart';
 import 'package:taskland/consts/font_theme.dart';
 import 'package:taskland/screens/introduction/welcome_screen.dart';
 
 void main() {
+  Hive.initFlutter();
+
   runApp(const MyApp());
 }
 
