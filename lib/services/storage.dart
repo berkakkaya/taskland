@@ -14,7 +14,7 @@ class StorageService {
   static Future<void> initialize() async {
     if (_initialized) return;
 
-    Hive.initFlutter();
+    await Hive.initFlutter();
 
     Hive.registerAdapter(TaskAdapter());
 
