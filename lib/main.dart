@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:taskland/consts/colors.dart';
 import 'package:taskland/consts/font_theme.dart';
 import 'package:taskland/screens/introduction/welcome_screen.dart';
+import 'package:taskland/services/storage.dart';
 
-void main() {
-  Hive.initFlutter();
+void main() async {
+  await StorageService.initialize();
 
-  runApp(const MyApp());
+  runApp(const App());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends StatefulWidget {
+  const App({super.key});
 
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
