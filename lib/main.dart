@@ -37,6 +37,17 @@ class _AppState extends State<App> {
         colorScheme: ColorScheme.fromSeed(seedColor: colorPrimary),
         useMaterial3: true,
         textTheme: fontTheme,
+        checkboxTheme: CheckboxThemeData(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4),
+          ),
+        ),
+        searchBarTheme: const SearchBarThemeData(
+          elevation: MaterialStatePropertyAll(4),
+          backgroundColor: MaterialStatePropertyAll(m3SurfaceContainerHigh),
+          padding: MaterialStatePropertyAll(EdgeInsets.all(8)),
+          surfaceTintColor: MaterialStatePropertyAll(Colors.transparent),
+        ),
       ),
       home: const WelcomeScreen(),
     );
