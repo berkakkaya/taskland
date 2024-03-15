@@ -38,19 +38,21 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       floatingActionButton: _getFab(),
-      body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
-        switchInCurve: Curves.easeOutCirc,
-        switchOutCurve: Curves.easeInCirc,
-        transitionBuilder: (child, animation) => FadeTransition(
-          opacity: animation,
-          child: child,
+      body: SafeArea(
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          switchInCurve: Curves.easeOutCirc,
+          switchOutCurve: Curves.easeInCirc,
+          transitionBuilder: (child, animation) => FadeTransition(
+            opacity: animation,
+            child: child,
+          ),
+          child: <Widget>[
+            const HomeTasksTab(key: ValueKey(0)),
+            const HomeHabitsTab(key: ValueKey(1)),
+            const HomeSettingsTab(key: ValueKey(2)),
+          ][currentPage],
         ),
-        child: <Widget>[
-          const HomeTasksTab(key: ValueKey(0)),
-          const HomeHabitsTab(key: ValueKey(1)),
-          const HomeSettingsTab(key: ValueKey(2)),
-        ][currentPage],
       ),
     );
   }
