@@ -61,8 +61,7 @@ class _TaskCardState extends State<TaskCard> {
                             size: 16,
                           ),
                           const SizedBox(width: 4),
-                          Text(snapshot.data!.notification!
-                              .localizedTime(context)),
+                          Text(snapshot.data!.notification!.toString()),
                           const SizedBox(width: 12),
                         ],
                         if (snapshot.data?.importance != null) ...[
