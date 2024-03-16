@@ -11,13 +11,4 @@ extension DateTimeLocalization on DateTime {
 
     return "$day $month $year";
   }
-
-  String localizedTime(BuildContext context) {
-    String locale = Localizations.localeOf(context).languageCode;
-
-    final String hour = DateFormat.H(locale).format(this);
-    final String minute = DateFormat.m(locale).format(this);
-
-    return "$hour:$minute";
-  }
 }
