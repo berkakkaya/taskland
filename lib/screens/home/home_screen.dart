@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:taskland/screens/home/home_habits_tab.dart';
 import 'package:taskland/screens/home/home_settings_tab.dart';
 import 'package:taskland/screens/home/home_tasks_tab.dart';
+import 'package:taskland/widgets/add_task_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -37,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      floatingActionButton: _getFab(),
+      floatingActionButton: _getFab(context),
       body: SafeArea(
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
@@ -57,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget? _getFab() {
+  Widget? _getFab(BuildContext context) {
     if (currentPage == 2) {
       return null;
     }
@@ -69,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final String hint = currentPage == 0 ? "Görev ekle" : "Alışkanlık ekle";
 
     return FloatingActionButton(
-      onPressed: () {},
+      onPressed: () => _triggerFab(context),
       tooltip: hint,
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
@@ -82,6 +83,18 @@ class _HomeScreenState extends State<HomeScreen> {
         child: icon,
       ),
     );
+  }
+
+  void _triggerFab(BuildContext context) {
+    if (currentPage == 0) {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (context) => const AddTaskCard(),
+      );
+
+      return;
+    }
   }
 
   void _onNewTabTapped(int index) {
