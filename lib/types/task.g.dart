@@ -19,7 +19,7 @@ class TaskAdapter extends TypeAdapter<Task> {
     return Task()
       ..name = fields[0] as String?
       ..date = fields[1] as DateTime?
-      ..notification = fields[2] as TimeOfDay?
+      ..notification = fields[2] as DateTime?
       ..importance = fields[3] as TaskImportance?;
   }
 

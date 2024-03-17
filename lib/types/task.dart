@@ -13,7 +13,7 @@ class Task {
   DateTime? date;
 
   @HiveField(2)
-  TimeOfDay? notification;
+  DateTime? notification;
 
   @HiveField(3)
   TaskImportance? importance;
