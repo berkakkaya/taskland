@@ -1,5 +1,6 @@
 import 'package:hive_flutter/adapters.dart';
 import 'package:taskland/types/task.dart';
+import 'package:taskland/types/task_importance.dart';
 
 class StorageService {
   static Box? _settingsBox;
@@ -17,6 +18,7 @@ class StorageService {
     await Hive.initFlutter();
 
     Hive.registerAdapter(TaskAdapter());
+    Hive.registerAdapter(TaskImportanceAdapter());
 
     _settingsBox = await Hive.openBox("settings");
     _tasksBox = await Hive.openLazyBox<Task>("tasks");
