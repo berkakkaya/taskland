@@ -4,7 +4,7 @@ import 'package:taskland/types/task_importance.dart';
 part 'task.g.dart';
 
 @HiveType(typeId: 1)
-class Task {
+class Task extends HiveObject {
   @HiveField(0)
   String? name;
 
