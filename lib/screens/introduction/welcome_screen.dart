@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:taskland/consts/illustrations.dart';
 import 'package:taskland/screens/home/home_screen.dart';
+import 'package:taskland/services/storage.dart';
 import 'package:taskland/widgets/page_indicator.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -109,6 +110,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
       return;
     }
+
+    StorageService.settingsBox.put("isWelcomeScreenPassed", true);
 
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (context) => const HomeScreen()),

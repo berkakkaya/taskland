@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:taskland/consts/colors.dart';
 import 'package:taskland/consts/font_theme.dart';
+import 'package:taskland/screens/home/home_screen.dart';
 import 'package:taskland/screens/introduction/welcome_screen.dart';
 import 'package:taskland/services/storage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -32,6 +33,9 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+    final isWelcomeScreenPassed =
+        StorageService.settingsBox.get("isWelcomeScreenPassed") == true;
+
     return MaterialApp(
       title: 'Taskland',
       localizationsDelegates: const [
@@ -60,7 +64,7 @@ class _AppState extends State<App> {
           surfaceTintColor: MaterialStatePropertyAll(Colors.transparent),
         ),
       ),
-      home: const WelcomeScreen(),
+      home: isWelcomeScreenPassed ? const HomeScreen() : const WelcomeScreen(),
     );
   }
 }
