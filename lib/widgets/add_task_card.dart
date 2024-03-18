@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taskland/extensions/color_scheme_direct_access.dart';
 import 'package:taskland/extensions/datetime_localization.dart';
 import 'package:taskland/services/storage.dart';
 import 'package:taskland/types/task.dart';
@@ -54,10 +55,10 @@ class _AddTaskCardState extends State<AddTaskCard> {
                   iconSize: 18,
                   style: ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(
-                      Theme.of(context).colorScheme.primary,
+                      context.colorScheme.primary,
                     ),
                     foregroundColor: MaterialStatePropertyAll(
-                      Theme.of(context).colorScheme.onPrimary,
+                      context.colorScheme.onPrimary,
                     ),
                     overlayColor: MaterialStatePropertyAll(
                       Theme.of(context)

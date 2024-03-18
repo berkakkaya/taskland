@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taskland/extensions/color_scheme_direct_access.dart';
 
 /// Indicates which page the user is in.
 class PageIndicator extends StatelessWidget {
@@ -36,7 +37,7 @@ class PageIndicator extends StatelessWidget {
       if (i == currentIndex) {
         dotColor = Theme.of(context).primaryColor;
       } else {
-        dotColor = Theme.of(context).colorScheme.primaryContainer;
+        dotColor = context.colorScheme.primaryContainer;
       }
 
       // Add the new dot to the list
