@@ -13,3 +13,4 @@ const colorPurple = Color(0xFFAC85FF);
 
 const m3OnSurfaceVariant = Color(0xFF46464F);
 const m3SurfaceContainerHigh = Color(0xFFE9E7EF);
+const m3PrimaryFixedDim = Color(0xFFBBC3FF);
