@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:taskland/consts/colors.dart';
 import 'package:taskland/consts/font_theme.dart';
 import 'package:taskland/screens/introduction/welcome_screen.dart';
@@ -53,7 +54,7 @@ class _AppState extends State<App> {
           ),
         ),
         searchBarTheme: const SearchBarThemeData(
-          elevation: MaterialStatePropertyAll(4),
+          elevation: MaterialStatePropertyAll(0),
           backgroundColor: MaterialStatePropertyAll(m3SurfaceContainerHigh),
           padding: MaterialStatePropertyAll(EdgeInsets.all(8)),
           surfaceTintColor: MaterialStatePropertyAll(Colors.transparent),
