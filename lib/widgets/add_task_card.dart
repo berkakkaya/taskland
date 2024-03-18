@@ -159,7 +159,7 @@ class _AddTaskCardState extends State<AddTaskCard> {
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
-      lastDate: DateTime(2101),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
       helpText: "Görev tarihi",
     );
     if (picked != null && picked != selectedDate) {
