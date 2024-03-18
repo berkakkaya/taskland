@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:taskland/consts/illustrations.dart';
 import 'package:taskland/services/storage.dart';
+import 'package:taskland/types/task.dart';
 import 'package:taskland/widgets/task_card.dart';
 
 class HomeTasksTab extends StatefulWidget {
@@ -12,21 +13,24 @@ class HomeTasksTab extends StatefulWidget {
 }
 
 class _HomeTasksTabState extends State<HomeTasksTab> {
+  String searchQuery = "";
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 16, right: 16, top: 32),
+        Padding(
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
           child: SearchBar(
             hintText: "Görevlerde ara",
-            trailing: [
+            trailing: const [
               Padding(
                 padding: EdgeInsets.all(8),
                 child: Icon(Icons.search_rounded),
               ),
             ],
+            onChanged: updateSearchQuery,
           ),
         ),
         ValueListenableBuilder(
@@ -36,16 +40,34 @@ class _HomeTasksTabState extends State<HomeTasksTab> {
               return Expanded(child: _getEmptyPage(context));
             }
 
+            List<Task>? searchResults;
+
+            if (searchQuery.isNotEmpty) {
+              searchResults = box.values.where((task) {
+                return task.name!
+                    .toLowerCase()
+                    .contains(searchQuery.toLowerCase());
+              }).toList();
+            }
+
             return Expanded(
               child: ListView.separated(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 24),
-                itemCount: box.length,
+                itemCount:
+                    searchResults != null ? searchResults.length : box.length,
                 itemBuilder: (context, index) {
                   return TaskCard(
-                    task: box.getAt(index),
+                    key: ObjectKey(
+                      searchResults != null
+                          ? searchResults.elementAt(index)
+                          : box.getAt(index)!,
+                    ),
+                    task: searchResults != null
+                        ? searchResults.elementAt(index)
+                        : box.getAt(index)!,
                   );
                 },
               ),
@@ -54,6 +76,12 @@ class _HomeTasksTabState extends State<HomeTasksTab> {
         ),
       ],
     );
+  }
+
+  void updateSearchQuery(val) {
+    setState(() {
+      searchQuery = val;
+    });
   }
 
   Padding _getEmptyPage(BuildContext context) {
