@@ -2,11 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:taskland/extensions/datetime_localization.dart';
+import 'package:taskland/screens/tasks/task_detail_screen.dart';
 import 'package:taskland/types/task.dart';
 import 'package:taskland/types/task_importance.dart';
 
 class TaskCard extends StatefulWidget {
-  final Future<Task?> task;
+  final Task task;
 
   const TaskCard({
     super.key,
@@ -24,74 +25,68 @@ class _TaskCardState extends State<TaskCard> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: widget.task,
-        builder: (context, snapshot) {
-          final hasExtraData = snapshot.data?.date != null ||
-              snapshot.data?.notification != null ||
-              snapshot.data?.importance != null;
+    final hasExtraData = widget.task.date != null ||
+        widget.task.notification != null ||
+        widget.task.importance != null;
 
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Checkbox(
-                value: checked,
-                onChanged: snapshot.hasData
-                    ? (val) => changeChecked(snapshot.data!, val)
-                    : null,
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      snapshot.data?.name ?? "...",
-                      maxLines: 1,
-                      overflow: TextOverflow.fade,
-                      softWrap: false,
-                    ),
-                    if (hasExtraData) ...[
-                      const SizedBox(height: 8),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          if (snapshot.data?.date != null) ...[
-                            const Icon(
-                              Icons.calendar_month_outlined,
-                              size: 16,
-                            ),
-                            const SizedBox(width: 4),
-                            Text(snapshot.data!.date!.localizedDate(context)),
-                            const SizedBox(width: 12),
-                          ],
-                          if (snapshot.data?.notification != null) ...[
-                            const Icon(
-                              Icons.alarm_rounded,
-                              size: 16,
-                            ),
-                            const SizedBox(width: 4),
-                            Text(snapshot.data!.notification!.toString()),
-                            const SizedBox(width: 12),
-                          ],
-                          if (snapshot.data?.importance != null) ...[
-                            const Icon(
-                              Icons.flag_outlined,
-                              size: 16,
-                            ),
-                            const SizedBox(width: 4),
-                            Text(getImportanceText(snapshot.data!.importance!)),
-                          ],
-                        ],
-                      ),
-                    ],
-                  ],
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Checkbox(value: checked, onChanged: (val) => changeChecked(val)),
+        const SizedBox(width: 8),
+        Expanded(
+          child: GestureDetector(
+            onTap: () => goToDetails(context),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  widget.task.name!,
+                  maxLines: 1,
+                  overflow: TextOverflow.fade,
+                  softWrap: false,
                 ),
-              ),
-            ],
-          );
-        });
+                if (hasExtraData) ...[
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      if (widget.task.date != null) ...[
+                        const Icon(
+                          Icons.calendar_month_outlined,
+                          size: 16,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(widget.task.date!.localizedDate(context)),
+                        const SizedBox(width: 12),
+                      ],
+                      if (widget.task.notification != null) ...[
+                        const Icon(
+                          Icons.alarm_rounded,
+                          size: 16,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(widget.task.notification!.toString()),
+                        const SizedBox(width: 12),
+                      ],
+                      if (widget.task.importance != null) ...[
+                        const Icon(
+                          Icons.flag_outlined,
+                          size: 16,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(getImportanceText(widget.task.importance!)),
+                      ],
+                    ],
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   String getImportanceText(TaskImportance importance) {
@@ -103,7 +98,7 @@ class _TaskCardState extends State<TaskCard> {
     };
   }
 
-  void changeChecked(Task task, bool? isChecked) {
+  void changeChecked(bool? isChecked) {
     setState(() {
       checked = isChecked;
     });
@@ -111,7 +106,7 @@ class _TaskCardState extends State<TaskCard> {
     if (isChecked == true) {
       deleteTimer = Timer(
         const Duration(seconds: 3),
-        () => task.delete(),
+        () => widget.task.delete(),
       );
 
       return;

@@ -4,13 +4,13 @@ import 'package:taskland/types/task_importance.dart';
 
 class StorageService {
   static Box? _settingsBox;
-  static LazyBox<Task>? _tasksBox;
+  static Box<Task>? _tasksBox;
 
   static bool _initialized = false;
 
   static bool get isInitialized => _initialized;
   static Box get settingsBox => _settingsBox!;
-  static LazyBox<Task> get tasksBox => _tasksBox!;
+  static Box<Task> get tasksBox => _tasksBox!;
 
   static Future<void> initialize() async {
     if (_initialized) return;
@@ -21,7 +21,7 @@ class StorageService {
     Hive.registerAdapter(TaskImportanceAdapter());
 
     _settingsBox = await Hive.openBox("settings");
-    _tasksBox = await Hive.openLazyBox<Task>("tasks");
+    _tasksBox = await Hive.openBox<Task>("tasks");
 
     _initialized = true;
   }
