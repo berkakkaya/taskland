@@ -95,6 +95,9 @@ flutter:
         - asset: assets/fonts/nunito.ttf
         - asset: assets/fonts/nunito_italic.ttf
           style: italic
+    - family: CustomIcons
+      fonts:
+        - asset: assets/fonts/CustomIcons.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
