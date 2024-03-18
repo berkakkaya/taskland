@@ -6,8 +6,12 @@ import 'package:taskland/screens/home/home_screen.dart';
 import 'package:taskland/screens/introduction/welcome_screen.dart';
 import 'package:taskland/services/storage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:taskland/services/version_fetching.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await VersionFetchingService.initialize();
   await StorageService.initialize();
 
   runApp(const App());

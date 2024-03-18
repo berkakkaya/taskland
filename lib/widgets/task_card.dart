@@ -29,63 +29,70 @@ class _TaskCardState extends State<TaskCard> {
         widget.task.notification != null ||
         widget.task.importance != null;
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Checkbox(value: checked, onChanged: (val) => changeChecked(val)),
-        const SizedBox(width: 8),
-        Expanded(
-          child: GestureDetector(
-            onTap: () => goToDetails(context),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  widget.task.name!,
-                  maxLines: 1,
-                  overflow: TextOverflow.fade,
-                  softWrap: false,
-                ),
-                if (hasExtraData) ...[
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      if (widget.task.date != null) ...[
-                        const Icon(
-                          Icons.calendar_month_outlined,
-                          size: 16,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(widget.task.date!.localizedDate(context)),
-                        const SizedBox(width: 12),
-                      ],
-                      if (widget.task.notification != null) ...[
-                        const Icon(
-                          Icons.alarm_rounded,
-                          size: 16,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(widget.task.notification!.toString()),
-                        const SizedBox(width: 12),
-                      ],
-                      if (widget.task.importance != null) ...[
-                        const Icon(
-                          Icons.flag_outlined,
-                          size: 16,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(getImportanceText(widget.task.importance!)),
-                      ],
-                    ],
-                  ),
-                ],
-              ],
+    return InkWell(
+      onTap: () => goToDetails(context),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Checkbox(
+              key: widget.key,
+              value: checked,
+              onChanged: (val) => changeChecked(val),
             ),
-          ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    widget.task.name!,
+                    maxLines: 1,
+                    overflow: TextOverflow.fade,
+                    softWrap: false,
+                  ),
+                  if (hasExtraData) ...[
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        if (widget.task.date != null) ...[
+                          const Icon(
+                            Icons.calendar_month_outlined,
+                            size: 16,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(widget.task.date!.localizedDate(context)),
+                          const SizedBox(width: 12),
+                        ],
+                        if (widget.task.notification != null) ...[
+                          const Icon(
+                            Icons.alarm_rounded,
+                            size: 16,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(widget.task.notification!.toString()),
+                          const SizedBox(width: 12),
+                        ],
+                        if (widget.task.importance != null) ...[
+                          const Icon(
+                            Icons.flag_outlined,
+                            size: 16,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(getImportanceText(widget.task.importance!)),
+                        ],
+                      ],
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
