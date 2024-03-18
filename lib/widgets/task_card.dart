@@ -119,4 +119,14 @@ class _TaskCardState extends State<TaskCard> {
       return;
     }
   }
+
+  void goToDetails(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => TaskDetailScreen(
+          task: widget.task,
+        ),
+      ),
+    );
+  }
 }
